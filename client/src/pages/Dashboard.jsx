@@ -180,7 +180,7 @@ const Dashboard = ({ setSignInOpen }) => {
         <>
           {currentUser && user?.podcasts?.length > 0 &&
             <FilterContainer box={true}>
-              <Topic>Your Uploads
+              <Topic>Suggestion for you
                 <Link to={`/profile`} style={{ textDecoration: "none" }}>
                   <Span>Show All</Span>
                 </Link>
