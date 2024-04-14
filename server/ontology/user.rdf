@@ -1,0 +1,15 @@
+
+            <rdf:Description>
+            <name>Sally</name>
+            <email>giangcute02@gmail.com</email>
+            <password>Qhuong@2008</password>
+            <favorits>[]</favorits>
+        </rdf:Description>
+            
+            <rdf:Description>
+            <name>Giang</name>
+            <email>hgiang140302@gmail.com</email>
+            <password>Hgiang@1403</password>
+            <favorits>[{"$oid":"660bd3ac3b57cafcc9fd92d3"},{"$oid":"660bd2263b57cafcc9fd927d"},{"$oid":"660bd48b3b57cafcc9fd92fd"}]</favorits>
+        </rdf:Description>
+            
