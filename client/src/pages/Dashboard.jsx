@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getMostPopularPodcast } from '../api/index';
 import { getPodcastByCategory } from '../api';
+import { getRecommend } from '../api/index';
 import { PodcastCard } from '../components/PodcastCard.jsx'
 import { getUsers } from '../api/index';
 import { Link } from 'react-router-dom';
@@ -91,6 +92,7 @@ const Dashboard = ({ setSignInOpen }) => {
   const [sports, setsports] = useState([]);
   const [crime, setCrime] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [recommends, setRecommends] = useState([]);
 
   //user
   const { currentUser } = useSelector(state => state.user);
@@ -151,12 +153,22 @@ const Dashboard = ({ setSignInOpen }) => {
       .catch((error) => console.log(error));
   }
 
+  const getRecommend1 = async () => {
+    getRecommend(token)
+      .then((res) => {
+        console.log(res)
+        setRecommends(res.data)
+      })
+      .catch((error) => console.log(error));
+  }
+
   const getallData = async () => {
     setLoading(true);
     if (currentUser) {
       setLoading(true);
       await getUser();
     }
+    await getRecommend1();
     await getPopularPodcast();
     await getCommedyPodcasts();
     await getNewsPodcasts();
@@ -186,7 +198,7 @@ const Dashboard = ({ setSignInOpen }) => {
                 </Link>
               </Topic>
               <Podcasts>
-                {user?.podcasts.slice(0, 10).map((podcast) => (
+                {recommends.slice(0, 10).map((podcast) => (
                   <PodcastCard podcast={podcast} user={user} setSignInOpen={setSignInOpen} />
                 ))}
               </Podcasts>

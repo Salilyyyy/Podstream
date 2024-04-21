@@ -31,6 +31,8 @@ export const resetPassword = async (email, password) => await API.put(`/auth/for
 export const getUsers = async (token) => await API.get('/user', { headers: { "Authorization": `Bearer ${token}` } }, {
     withCredentials: true
 });
+export const getRecommend = async (token) => await API.post('/user/recommend', {}, { headers: { "Authorization": `Bearer ${token}` } }, { withCredentials: true });
+
 export const searchUsers = async (search, token) => await API.get(`users/search/${search}`, { headers: { "Authorization": `Bearer ${token}` } }, { withCredentials: true });
 
 
