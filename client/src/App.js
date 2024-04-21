@@ -20,6 +20,7 @@ import AudioPlayer from "./components/AudioPlayer.jsx";
 import VideoPlayer from "./components/VideoPlayer.jsx";
 import PodcastDetails from "./pages/PodcastDetails.jsx";
 import { closeSignin } from "./redux/setSigninSlice.jsx";
+import KommunicateChat from "./chatbox.js";
 
 const Frame = styled.div`
   display: flex;
@@ -41,8 +42,8 @@ function App() {
 
   const [darkMode, setDarkMode] = useState(true);
   const { open, message, severity } = useSelector((state) => state.snackbar);
-  const {openplayer,type, episode, podid, currenttime,index} = useSelector((state) => state.audioplayer);
-  const {opensi} =  useSelector((state) => state.signin);
+  const { openplayer, type, episode, podid, currenttime, index } = useSelector((state) => state.audioplayer);
+  const { opensi } = useSelector((state) => state.signin);
   const [SignUpOpen, setSignUpOpen] = useState(false);
   const [SignInOpen, setSignInOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(true);
@@ -51,25 +52,25 @@ function App() {
 
   const { currentUser } = useSelector(state => state.user);
   const dispatch = useDispatch()
-    //set the menuOpen state to false if the screen size is less than 768px
-    useEffect(() => {
-      const resize = () => {
-        if (window.innerWidth < 1110) {
-          setMenuOpen(false);
-        } else {
-          setMenuOpen(true);
-        }
+  //set the menuOpen state to false if the screen size is less than 768px
+  useEffect(() => {
+    const resize = () => {
+      if (window.innerWidth < 1110) {
+        setMenuOpen(false);
+      } else {
+        setMenuOpen(true);
       }
-      resize();
-      window.addEventListener("resize", resize);
-      return () => window.removeEventListener("resize", resize);
-    }, []);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
 
-    useEffect(()=>{
-      dispatch(
-        closeSignin()
-      )
-    },[])
+  useEffect(() => {
+    dispatch(
+      closeSignin()
+    )
+  }, [])
 
   return (
 
@@ -79,19 +80,19 @@ function App() {
         {opensi && <Signin setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
         {SignUpOpen && <Signup setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
         {uploadOpen && <Upload setUploadOpen={setUploadOpen} />}
-        {openplayer && type === 'video' && <VideoPlayer episode={episode} podid={podid} currenttime={currenttime} index={index}/>}
-        {openplayer && type === 'audio'  && <AudioPlayer episode={episode} podid={podid} currenttime={currenttime} index={index}/>}
+        {openplayer && type === 'video' && <VideoPlayer episode={episode} podid={podid} currenttime={currenttime} index={index} />}
+        {openplayer && type === 'audio' && <AudioPlayer episode={episode} podid={podid} currenttime={currenttime} index={index} />}
         <Podstream>
-          {menuOpen && <Menu setMenuOpen={setMenuOpen} darkMode={darkMode} setDarkMode={setDarkMode} setUploadOpen={setUploadOpen} setSignInOpen={setSignInOpen}/>}
+          {menuOpen && <Menu setMenuOpen={setMenuOpen} darkMode={darkMode} setDarkMode={setDarkMode} setUploadOpen={setUploadOpen} setSignInOpen={setSignInOpen} />}
           <Frame>
             <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />
             <Routes>
-              <Route path='/' exact element={<Dashboard setSignInOpen={setSignInOpen}/>} />
+              <Route path='/' exact element={<Dashboard setSignInOpen={setSignInOpen} />} />
               <Route path='/search' exact element={<Search />} />
               <Route path='/favourites' exact element={<Favourites />} />
               <Route path='/profile' exact element={<Profile />} />
               <Route path='/podcast/:id' exact element={<PodcastDetails />} />
-              <Route path='/showpodcasts/:type' exact element={<DisplayPodcasts/>} />
+              <Route path='/showpodcasts/:type' exact element={<DisplayPodcasts />} />
 
             </Routes>
           </Frame>
@@ -100,10 +101,11 @@ function App() {
         </Podstream>
 
       </BrowserRouter>
-
+      <KommunicateChat />
     </ThemeProvider>
 
   );
+
 }
 
 export default App;
