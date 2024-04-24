@@ -99,9 +99,9 @@ function App() {
 
           {open && <ToastMessage open={open} message={message} severity={severity} />}
         </Podstream>
-
+        <KommunicateChat />
       </BrowserRouter>
-      <KommunicateChat />
+
     </ThemeProvider>
 
   );

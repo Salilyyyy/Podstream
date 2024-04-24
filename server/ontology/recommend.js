@@ -94,11 +94,9 @@ fs.readFile('ontology/user.rdf', 'utf8', (err, userData) => {
     // Phân tích RDF và trích xuất thông tin người dùng
     const users = parseUserRDF(userData);
 
-    // Hàm gợi ý bài hát dựa trên danh sách favorits của người dùng
-
     // Gợi ý bài hát cho mỗi người dùng
     for (const user of users) {
-      // recommendSongs(user);
+
     }
   });
 });
