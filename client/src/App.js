@@ -20,7 +20,6 @@ import AudioPlayer from "./components/AudioPlayer.jsx";
 import VideoPlayer from "./components/VideoPlayer.jsx";
 import PodcastDetails from "./pages/PodcastDetails.jsx";
 import { closeSignin } from "./redux/setSigninSlice.jsx";
-import KommunicateChat from "./chatbox.js";
 
 const Frame = styled.div`
   display: flex;
@@ -99,7 +98,7 @@ function App() {
 
           {open && <ToastMessage open={open} message={message} severity={severity} />}
         </Podstream>
-        <KommunicateChat />
+
       </BrowserRouter>
 
     </ThemeProvider>

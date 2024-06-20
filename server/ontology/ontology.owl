@@ -1,0 +1,107 @@
+@prefix : <http://example.org/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ontology> rdf:type owl:Ontology .
+
+### Classes ###
+:Podcast rdf:type owl:Class ;
+         rdfs:label "Podcast" .
+
+:Episode rdf:type owl:Class ;
+         rdfs:label "Episode" .
+
+:User rdf:type owl:Class ;
+      rdfs:label "User" .
+
+### Object Properties ###
+:hasEpisode rdf:type owl:ObjectProperty ;
+            rdfs:domain :Podcast ;
+            rdfs:range :Episode ;
+            rdfs:label "has episode" .
+
+:createdBy rdf:type owl:ObjectProperty ;
+           rdfs:domain :Podcast, :Episode ;
+           rdfs:range :User ;
+           rdfs:label "created by" .
+
+### Data Properties ###
+:name rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Podcast, :Episode, :User ;
+      rdfs:range xsd:string ;
+      rdfs:label "name" .
+
+:desc rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Podcast, :Episode ;
+      rdfs:range xsd:string ;
+      rdfs:label "description" .
+
+:creator rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Podcast, :Episode ;
+         rdfs:range xsd:string ;
+         rdfs:label "creator ID" .
+
+:type rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Podcast, :Episode ;
+      rdfs:range xsd:string ;
+      rdfs:label "type" .
+
+:category rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Podcast ;
+          rdfs:range xsd:string ;
+          rdfs:label "category" .
+
+:views rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Podcast ;
+       rdfs:range xsd:integer ;
+       rdfs:label "views" .
+
+:email rdf:type owl:DatatypeProperty ;
+       rdfs:domain :User ;
+       rdfs:range xsd:string ;
+       rdfs:label "email" .
+
+:password rdf:type owl:DatatypeProperty ;
+          rdfs:domain :User ;
+          rdfs:range xsd:string ;
+          rdfs:label "password" .
+
+:file rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Episode ;
+      rdfs:range xsd:string ;
+      rdfs:label "file URL" .
+
+:createdAt rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Episode ;
+           rdfs:range xsd:dateTime ;
+           rdfs:label "created at" .
+
+:updatedAt rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Episode ;
+           rdfs:range xsd:dateTime ;
+           rdfs:label "updated at" .
+
+### Instances ###
+:podcast1 rdf:type :Podcast ;
+          :name "Love Maze" ;
+          :desc "Love is a complex maze, testing our patience and pushing us to grow. It requires courage, vulnerability, and embracing the unknown. Despite feeling lost, there is beauty in the journey. We discover ourselves, appreciate the small moments, and find strength. It's okay to ask for help and lean on others. Love is meant to be shared. Embrace the twists and turns, cherish the moments, and enjoy the adventure of the love maze." ;
+          :creator "ObjectId(65f71c9787475fb700e84988)" ;
+          :type "audio" ;
+          :category "Health" ;
+          :views 0 ;
+          :hasEpisode :episode1 .
+
+:episode1 rdf:type :Episode ;
+          :name "The Essence of Love" ;
+          :desc "Join us in our captivating debut episode as we explore the profound essence of love. Through personal stories, expert insights, and thought-provoking discussions, we unravel the complexities and transformative power of love. Discover the challenges, triumphs, and lessons found within the twists and turns of the love maze. Explore the importance of self-love and its impact on our ability to give and receive love. Tune in to gain a deeper understanding of love's essence and its ability to shape our lives with joy and profound connections." ;
+          :creator "ObjectId(65f71c9787475fb700e84988)" ;
+          :type "audio" ;
+          :file "https://firebasestorage.googleapis.com/v0/b/lalsasia.appspot.com/o/1712049032612H%E1%BB%8Dc%20Ti%E1%BA%BFng%20Anh%20Qua%20Nh%E1%BB%AFng%20%C4%90o%E1%BA%A1n%20Video%20Ng%E1%BA%AFn%20-%20Nh%E1%BB%AFng%20C%C3%A2u%20N%C3%B3i%20Hay%20-%20%2322%20%5BEnglish%20For%20Life%5D.mp4?alt=media&token=f9566ec8-48e4-4715-9604-8cf7fcf0d75f" ;
+          :createdAt "2024-04-02T09:11:48.593Z" ;
+          :updatedAt "2024-04-02T09:11:48.593Z" .
+
+:user1 rdf:type :User ;
+       :name "Sally" ;
+       :email "giangcute02@gmail.com" ;
+       :password "Qhuong@2008" .

@@ -90,7 +90,7 @@ const Dashboard = ({ setSignInOpen }) => {
   const [comedy, setComedy] = useState([]);
   const [news, setNews] = useState([]);
   const [sports, setsports] = useState([]);
-  const [crime, setCrime] = useState([]);
+  const [health, setHealth] = useState([]);
   const [loading, setLoading] = useState(false);
   const [recommends, setRecommends] = useState([]);
 
@@ -144,10 +144,10 @@ const Dashboard = ({ setSignInOpen }) => {
       .catch((error) => console.log(error));
   }
 
-  const getCrimePodcasts = async () => {
-    getPodcastByCategory("crime")
+  const getHealthPodcasts = async () => {
+    getPodcastByCategory("health")
       .then((res) => {
-        setCrime(res.data)
+        setHealth(res.data)
         console.log(res.data)
       })
       .catch((error) => console.log(error));
@@ -173,7 +173,7 @@ const Dashboard = ({ setSignInOpen }) => {
     await getCommedyPodcasts();
     await getNewsPodcasts();
     await getCommedyPodcasts();
-    await getCrimePodcasts();
+    await getHealthPodcasts();
     await getSportsPodcasts();
     setLoading(false);
   }
@@ -241,13 +241,13 @@ const Dashboard = ({ setSignInOpen }) => {
             </Podcasts>
           </FilterContainer>
           <FilterContainer>
-            <Link to={`/showpodcasts/crime`} style={{ textDecoration: "none" }}>
-              <Topic>Crime
+            <Link to={`/showpodcasts/health`} style={{ textDecoration: "none" }}>
+              <Topic>Health
                 <Span>Show All</Span>
               </Topic>
             </Link>
             <Podcasts>
-              {crime.slice(0, 10).map((podcast) => (
+              {health.slice(0, 10).map((podcast) => (
                 <PodcastCard podcast={podcast} user={user} setSignInOpen={setSignInOpen} />
               ))}
             </Podcasts>

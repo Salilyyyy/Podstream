@@ -15,21 +15,26 @@ import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 import CloseRounded from '@mui/icons-material/CloseRounded';
 import LogoIcon from '../Images/Logo.png'
 import { openSignin } from '../redux/setSigninSlice';
+import { MessageOutlined } from '@mui/icons-material';
+import { useState } from 'react';
+import KommunicateChat from '../chatbox';
 
 const MenuContainer = styled.div`
+ position: relative;
   flex: 0.5;
   flex-direction: column;
   height: 100vh;
   display: flex;
   box-sizing: border-box;
   align-items: flex-start;
+
   background-color: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.text_primary};
   @media (max-width: 1100px) {
     position: fixed;
     z-index: 1000;
     width: 100%;
-    max-width: 250px;
+    max-width: 300px;
     left: ${({ setMenuOpen }) => (setMenuOpen ? "0" : "-100%")};
     transition: 0.3s ease-in-out;
   }
@@ -94,99 +99,107 @@ const Menu = ({ setMenuOpen, darkMode, setDarkMode, setUploadOpen }) => {
         dispatch(logout());
         navigate(`/`);
     };
-
+    const [showChatbox, setShowChatbox] = useState(false);
     return (
         <MenuContainer setMenuOpen={setMenuOpen}>
-            <Flex>
-                <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-                    <Logo>
-                        <Image src={LogoIcon} />
-                        PODSTREAM
-                    </Logo>
+            <div>
+                <Flex>
+                    <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+                        <Logo>
+                            <Image src={LogoIcon} />
+                            PODSTREAM
+                        </Logo>
+                    </Link>
+                    <Close>
+                        <CloseRounded onClick={() => setMenuOpen(false)} style={{ cursor: "pointer" }} />
+                    </Close>
+                </Flex>
+                <Link to='/' style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
+                    <Elements>
+                        <HomeRoundedIcon />
+                        <NavText>Dashboard</NavText>
+                    </Elements>
                 </Link>
-                <Close>
-                    <CloseRounded onClick={() => setMenuOpen(false)} style={{ cursor: "pointer" }} />
-                </Close>
-            </Flex>
-            <Link to='/' style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
-                <Elements>
-                    <HomeRoundedIcon />
-                    <NavText>Dashboard</NavText>
-                </Elements>
-            </Link>
-            <Link to='/search' style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
-                <Elements>
-                    <SearchRoundedIcon />
-                    <NavText>Search</NavText>
-                </Elements>
-            </Link>
-            {
-                currentUser ?
-                    <Link to='/favourites' style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
-                        <Elements>
-                            <FavoriteRoundedIcon />
-                            <NavText>Favourites</NavText>
-                        </Elements>
-                    </Link >
-                    :
-                    <Link onClick={() =>
+                <div onClick={() => setShowChatbox(!showChatbox)} style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
+                    <Elements>
+                        <MessageOutlined />
+                        <NavText>Chatbox</NavText>
+                    </Elements>
+                </div>
+                <Link to='/search' style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
+                    <Elements>
+                        <SearchRoundedIcon />
+                        <NavText>Search</NavText>
+                    </Elements>
+                </Link>
+                {
+                    currentUser ?
+                        <Link to='/favourites' style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
+                            <Elements>
+                                <FavoriteRoundedIcon />
+                                <NavText>Favourites</NavText>
+                            </Elements>
+                        </Link >
+                        :
+                        <Link onClick={() =>
+                            dispatch(
+                                openSignin()
+                            )
+                        } style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
+                            <Elements>
+                                <FavoriteRoundedIcon />
+                                <NavText>Favourites</NavText>
+                            </Elements>
+                        </Link >
+                }
+                <HR />
+                <Link onClick={() => {
+                    if (currentUser) {
+                        setUploadOpen(true)
+                    } else {
                         dispatch(
                             openSignin()
                         )
-                    } style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
-                        <Elements>
-                            <FavoriteRoundedIcon />
-                            <NavText>Favourites</NavText>
-                        </Elements>
-                    </Link >
-            }
-            <HR />
-            <Link onClick={() => {
-                if (currentUser) {
-                    setUploadOpen(true)
-                } else {
-                    dispatch(
-                        openSignin()
-                    )
+                    }
+                }} style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
+                    <Elements>
+                        <BackupRoundedIcon />
+                        <NavText>Upload</NavText>
+                    </Elements>
+                </Link>
+
+
+                {
+                    darkMode ?
+                        <>
+                            <Elements onClick={() => setDarkMode(false)}>
+                                <LightModeRoundedIcon />
+                                <NavText>Light Mode</NavText>
+                            </Elements>
+                        </>
+                        :
+                        <>
+                            <Elements onClick={() => setDarkMode(true)}>
+                                <DarkModeRoundedIcon />
+                                <NavText>Dark Mode</NavText>
+                            </Elements>
+                        </>
                 }
-            }} style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
-                <Elements>
-                    <BackupRoundedIcon />
-                    <NavText>Upload</NavText>
-                </Elements>
-            </Link>
-
-
-            {
-                darkMode ?
-                    <>
-                        <Elements onClick={() => setDarkMode(false)}>
-                            <LightModeRoundedIcon />
-                            <NavText>Light Mode</NavText>
+                {
+                    currentUser ?
+                        <Elements onClick={() => logoutUser()}>
+                            <ExitToAppRoundedIcon />
+                            <NavText>Log Out</NavText>
                         </Elements>
-                    </>
-                    :
-                    <>
-                        <Elements onClick={() => setDarkMode(true)}>
-                            <DarkModeRoundedIcon />
-                            <NavText>Dark Mode</NavText>
+
+                        :
+                        <Elements onClick={() => dispatch(openSignin())}>
+                            <ExitToAppRoundedIcon />
+                            <NavText>Log In</NavText>
                         </Elements>
-                    </>
-            }
-            {
-                currentUser ?
-                    <Elements onClick={() => logoutUser()}>
-                        <ExitToAppRoundedIcon />
-                        <NavText>Log Out</NavText>
-                    </Elements>
-
-                    :
-                    <Elements onClick={() => dispatch(openSignin())}>
-                        <ExitToAppRoundedIcon />
-                        <NavText>Log In</NavText>
-                    </Elements>
-            }
-
+                }
+            </div>
+            {showChatbox && <KommunicateChat />}
         </MenuContainer >
     )
 }
